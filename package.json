@@ -1,0 +1,12 @@
+{
+  "name": "queuectl",
+  "version": "1.0.0",
+  "description": "cli-based background job queue system",
+  "license": "ISC",
+  "author": "5ar1m",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
