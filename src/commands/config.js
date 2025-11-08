@@ -2,58 +2,37 @@ const { Command } = require('commander');
 
 /*
 command example -> 
-    1. queuectl config get default-workers
-    2. queuectl config set max-retries 3
+1. queuectl config get default-workers
+2. queuectl config set max-retries 3
 */
 
-const config = new Command('config')
-    .description('manage configuration');
+const config = new Command('config');
+config.description('manage configuration');
 
 // getting the values
 
-const configGet = config.command('get')
-    .description('get a configuration value');
+const configGet = config.command('get');
 
 configGet
-    .command('max-retries')
-    .description('get the max job retries')
-    .action(() => {
-        // logic to get the value
-    });
-
-configGet
-    .command('backoff-base')
-    .description('get the backoff base')
-    .action(() => {
-        // logic to get the value
-    });
-
-configGet
-    .command('default-workers')
-    .description('get the default numbers of workers')
-    .action(() => {
-        // logic to get the value
-    });
+.description('get configuration values')
+.option('--max-retries', 'get the max job retries')
+.option('--backoff-base', 'get the backoff base')
+.option('--default-workers', 'get the default numbers of workers')
+.action((options) => {
+    // logic to get values
+});
 
 // setting the values
 
-const configSet = config.command('set')
-    .description('set a configuration value');
+const configSet = config.command('set');
 
 configSet
-    .command('max-retries')
-    .description('set the max job retries')
-    .argument('<value>', 'Number of retries (integer)')
-    .action((value) => {
-        // logic to set value
-    });
-
-configSet
-    .command('backoff-base')
-    .description('set the backoff base')
-    .argument('<value>', 'backoff base (delay = base ^ attempts)')
-    .action((value) => {
-        // logic to set value
-    });
+.description('set a configuration value')
+.option('--max-retries <number>', 'set the max job retries', parseInt)
+.option('--backoff-base <number>', 'set the backoff base', parseFloat)
+.option('--default-workers <number>', 'set the default numbers of workers', parseInt)
+.action((options) => {
+    // logic to set values
+});
 
 module.exports = config;

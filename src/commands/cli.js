@@ -9,14 +9,13 @@ const configCommand = require('./config.js');
 const program = new Command();
 
 program
-    .version('1.0.0')
-    .description('A command-line tool for managing workers, jobs, and config.');
-
-program.addCommand(enqueueCommand);
-program.addCommand(workerCommand);
-program.addCommand(statusCommand);
-program.addCommand(listCommand);
-program.addCommand(dlqCommand);
-program.addCommand(configCommand);
+.version('1.0.0')
+.description('cli-based background job queue system')
+.addCommand(enqueueCommand)
+.addCommand(workerCommand)
+.addCommand(statusCommand)
+.addCommand(listCommand)
+.addCommand(dlqCommand)
+.addCommand(configCommand);
 
 module.exports = program;
