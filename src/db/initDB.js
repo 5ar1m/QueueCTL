@@ -1,0 +1,42 @@
+const { maxRetries } = require('../settings.js');
+const asyncRun = require('./asyncRun.js');
+
+const createJQ = `CREATE TABLE IF NOT EXISTS job_queue (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                command TEXT,
+                state TEXT DEFAULT 'pending',
+                attempts INTEGER DEFAULT 0,
+                max_retries INTEGER DEFAULT ${maxRetries},
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )`;
+
+const createDLQ = `CREATE TABLE IF NOT EXISTS dead_letter_queue (
+                id INTEGER PRIMARY KEY,
+                command TEXT,
+                max_retries INTEGER DEFAULT ${maxRetries},
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )`;
+
+const createArchive = `CREATE TABLE IF NOT EXISTS archive (
+                id INTEGER PRIMARY KEY,
+                command TEXT,
+                attempts INTEGER DEFAULT 0,
+                max_retries INTEGER DEFAULT ${maxRetries},
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )`;
+
+async function initDB() {
+    try {
+        await asyncRun(createJQ);
+        await asyncRun(createDLQ);
+        await asyncRun(createArchive);
+    } catch (err) {
+        console.error(`db initialization failed: ${err.message}`);
+        process.exit(1);
+    }
+}
+
+module.exports = initDB;

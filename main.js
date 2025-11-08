@@ -1,3 +1,7 @@
 const program = require('./src/commands/cli.js');
+const initDB = require('./src/db/initDB.js');
 
-program.parse(process.argv);
+initDB()
+.then(() => {
+    program.parse(process.argv);
+})
