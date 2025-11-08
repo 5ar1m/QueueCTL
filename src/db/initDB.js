@@ -3,7 +3,8 @@ const asyncRun = require('./asyncRun.js');
 
 const createJQ = `CREATE TABLE IF NOT EXISTS job_queue (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                command TEXT,
+                title TEXT NOT NULL,
+                command TEXT NOT NULL,
                 state TEXT DEFAULT 'pending',
                 attempts INTEGER DEFAULT 0,
                 max_retries INTEGER DEFAULT ${maxRetries},
@@ -13,7 +14,8 @@ const createJQ = `CREATE TABLE IF NOT EXISTS job_queue (
 
 const createDLQ = `CREATE TABLE IF NOT EXISTS dead_letter_queue (
                 id INTEGER PRIMARY KEY,
-                command TEXT,
+                title TEXT NOT NULL,
+                command TEXT NOT NULL,
                 max_retries INTEGER DEFAULT ${maxRetries},
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -21,7 +23,8 @@ const createDLQ = `CREATE TABLE IF NOT EXISTS dead_letter_queue (
 
 const createArchive = `CREATE TABLE IF NOT EXISTS archive (
                 id INTEGER PRIMARY KEY,
-                command TEXT,
+                title TEXT NOT NULL,
+                command TEXT NOT NULL,
                 attempts INTEGER DEFAULT 0,
                 max_retries INTEGER DEFAULT ${maxRetries},
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
