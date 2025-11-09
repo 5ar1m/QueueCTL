@@ -36,7 +36,8 @@ To set up QueueCTL locally, follow these steps:
 
 ## 🏗️ Architecture
 
-*(Note: Replace the image path above with your actual architecture diagram)*
+<img width="1450" height="1255" alt="queuectl_architecture" src="https://github.com/user-attachments/assets/b6436faf-b853-49f8-809f-84ed81c4d0d4" />
+
 
 QueueCTL operates by interfacing directly with your underlying queue storage (e.g., sqlite3 database). It allows for decoupled management of job producers (enqueuing) and consumers (workers), while providing a unified view for monitoring system health and handling failed jobs via the DLQ.
 
