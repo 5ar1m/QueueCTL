@@ -1,7 +1,5 @@
 const asyncRun = require('./asyncRun.js');
 const { getSettings } = require('../utils/settings.js');
-const { configDir } = require('../utils/configDir.js');
-const path = require('path');
 
 async function initDB() {
     try {

@@ -1,5 +1,6 @@
 const { Command } = require('commander');
 const { start, stop } = require('../workers/control.js');
+const { getSettings } = require('../utils/settings.js');
 
 /*
 command examples ->
@@ -15,11 +16,12 @@ worker
 .command('start')
 .description('start one or more workers')
 .option('--count <number>', 'number of workers to start', parseInt)
-.action((options) => {
+.action(async (options) => {
     // logic to start the workers
     let totalWorkers = 0;
     if (!options['count']){
-        totalWorkers = 1;
+        const settings = await getSettings('settings.json');
+        totalWorkers = settings['defaultWorkers'];
     } else {
         totalWorkers = options['count'];
     }

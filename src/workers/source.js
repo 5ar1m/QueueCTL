@@ -1,8 +1,8 @@
 const { parentPort } = require('worker_threads');
 const { exec } = require('child_process');
-const { asyncGet } = require('../db/asyncGet.js');
-const { asyncRun } = require('../db/asyncRun.js');
-const { insertNew } = require('../queue/insertNew.js');
+const asyncGet = require('../db/asyncGet.js');
+const asyncRun = require('../db/asyncRun.js');
+const insertNew = require('../queue/insertNew.js');
 const { getSettings } = require('../utils/settings.js');
 
 let isRunning = true;

@@ -1,7 +1,7 @@
 const { Worker } = require('worker_threads');
 const path = require('path');
 
-let workersCollection = new Map();
+const workersCollection = new Map();
 
 function spawnWorker(id) {
     const workerPath = path.join(__dirname, 'source.js');
@@ -52,6 +52,4 @@ async function stop() {
     console.log('All workers stopped.');
 }
 
-const activeWorkers = workersCollection.size;
-
-module.exports = { start, stop, activeWorkers };
+module.exports = { start, stop, workersCollection };
