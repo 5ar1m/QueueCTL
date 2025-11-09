@@ -15,16 +15,16 @@ const jobQueueInserts = [
 ];
 
 const dlqInserts = [
-    "INSERT INTO dead_letter_queue (title, command, max_retries, log, created_at, updated_at) VALUES ('Failed Payment', 'node process_payment.js --id=555', 3, 'Error: Payment gateway timeout after 30s', DATETIME('now', '-2 days'), DATETIME('now', '-2 days', '+1 hour'))",
-    "INSERT INTO dead_letter_queue (title, command, max_retries, log, created_at, updated_at) VALUES ('Invalid Webhook', 'curl -X POST https://broken-api.com/callback', 5, 'HTTP 404 Not Found', DATETIME('now', '-1 week'), DATETIME('now', '-6 days'))",
-    "INSERT INTO dead_letter_queue (title, command, max_retries, log) VALUES ('Syntax Error Script', 'python3 script_with_typo.py', 3, 'SyntaxError: invalid syntax on line 42')",
-    "INSERT INTO dead_letter_queue (title, command, max_retries, log) VALUES ('Timeout Job', 'sleep 3600', 1, 'Process killed: exceeded max execution time of 600s')",
-    "INSERT INTO dead_letter_queue (title, command, max_retries, log, created_at) VALUES ('Missing Dependency', 'node requires_missing_lib.js', 3, 'Error: Cannot find module ''lodash''', DATETIME('now', '-3 days'))",
-    "INSERT INTO dead_letter_queue (title, command, max_retries, log) VALUES ('Database Connection Fail', 'java -jar db-migrator.jar', 10, 'java.sql.SQLException: Connection refused')",
-    "INSERT INTO dead_letter_queue (title, command, max_retries, log) VALUES ('Out of Memory', 'process_huge_dataset.sh', 0, 'Killed (OOM signal 9)')",
-    "INSERT INTO dead_letter_queue (title, command, max_retries, log, created_at, updated_at) VALUES ('API Rate Limit Exceeded', 'node fetch_data.js --all', 5, 'Error: 429 Too Many Requests. Retry-After: 3600', DATETIME('now', '-12 hours'), DATETIME('now', '-11 hours'))",
-    "INSERT INTO dead_letter_queue (title, command, max_retries, log) VALUES ('Permission Denied', 'touch /root/test_file', 3, 'touch: cannot touch ''/root/test_file'': Permission denied')",
-    "INSERT INTO dead_letter_queue (title, command, max_retries, log) VALUES ('Corrupt Input File', 'ffmpeg -i corrupt.mp4 out.avi', 3, '[mov,mp4,m4a,3gp,3g2,mj2 @ 0x55a] moov atom not found')"
+    "INSERT INTO dead_letter_queue (title, command, max_retries, created_at, updated_at) VALUES ('Failed Payment', 'node process_payment.js --id=555', 3, DATETIME('now', '-2 days'), DATETIME('now', '-2 days', '+1 hour'))",
+    "INSERT INTO dead_letter_queue (title, command, max_retries, created_at, updated_at) VALUES ('Invalid Webhook', 'curl -X POST https://broken-api.com/callback', 5, DATETIME('now', '-1 week'), DATETIME('now', '-6 days'))",
+    "INSERT INTO dead_letter_queue (title, command, max_retries) VALUES ('Syntax Error Script', 'python3 script_with_typo.py', 3)",
+    "INSERT INTO dead_letter_queue (title, command, max_retries) VALUES ('Timeout Job', 'sleep 3600', 1)",
+    "INSERT INTO dead_letter_queue (title, command, max_retries, created_at) VALUES ('Missing Dependency', 'node requires_missing_lib.js', 3, DATETIME('now', '-3 days'))",
+    "INSERT INTO dead_letter_queue (title, command, max_retries) VALUES ('Database Connection Fail', 'java -jar db-migrator.jar', 10)",
+    "INSERT INTO dead_letter_queue (title, command, max_retries) VALUES ('Out of Memory', 'process_huge_dataset.sh', 0)",
+    "INSERT INTO dead_letter_queue (title, command, max_retries, created_at, updated_at) VALUES ('API Rate Limit Exceeded', 'node fetch_data.js --all', 5, DATETIME('now', '-12 hours'), DATETIME('now', '-11 hours'))",
+    "INSERT INTO dead_letter_queue (title, command, max_retries) VALUES ('Permission Denied', 'touch /root/test_file', 3)",
+    "INSERT INTO dead_letter_queue (title, command, max_retries) VALUES ('Corrupt Input File', 'ffmpeg -i corrupt.mp4 out.avi', 3)"
 ];
 
 const archiveInserts = [

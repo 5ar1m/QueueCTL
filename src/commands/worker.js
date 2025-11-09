@@ -1,4 +1,5 @@
 const { Command } = require('commander');
+const { start, stop } = require('../workers/control.js');
 
 /*
 command examples ->
@@ -16,14 +17,22 @@ worker
 .option('--count <number>', 'number of workers to start', parseInt)
 .action((options) => {
     // logic to start the workers
+    let totalWorkers = 0;
+    if (!options['count']){
+        totalWorkers = 1;
+    } else {
+        totalWorkers = options['count'];
+    }
+    start(totalWorkers);
 });
 
 // worker stop
 worker
 .command('stop')
 .description('stop running workers gracefully')
-.action(() => {
+.action(async() => {
     // logic to stop the workers
+    await stop();
 });
 
 module.exports = worker;

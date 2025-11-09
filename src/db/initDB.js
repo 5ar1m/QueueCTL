@@ -24,7 +24,6 @@ async function initDB() {
                         title TEXT NOT NULL,
                         command TEXT NOT NULL,
                         max_retries INTEGER DEFAULT ${maxRetries},
-                        log TEXT,
                         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
                     )`;
