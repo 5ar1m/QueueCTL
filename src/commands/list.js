@@ -1,4 +1,5 @@
 const { Command, Option } = require('commander');
+const listAll = require('../queue/listAll');
 
 // command example -> queuectl list --state pending
 
@@ -21,8 +22,9 @@ list
     .makeOptionMandatory(true)
     .argParser((value) => value.toLowerCase())
 )
-.action((options) => {
+.action(async (options) => {
     // logic to handle the listing
+    await listAll(options['state']);
 });
 
 module.exports = list;
