@@ -4,4 +4,4 @@ const fs = require('fs');
 
 const configDir = path.join(os.homedir(), '.queuectl');
 
-module.exports = configDir;
+module.exports = { configDir };

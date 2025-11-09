@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 
-const program = require('./src/commands/cli.js');
-const { updateSettings } = require('./src/utils/settings.js');
-const
+const initSettings = require('./src/utils/initSettings.js');
 const initDB = require('./src/db/initDB.js');
+const program = require('./src/commands/cli.js');
 
 async function main() {
-    await updateSettings()
+    await initSettings();
     await initDB();
     program.parse(process.argv);
 }

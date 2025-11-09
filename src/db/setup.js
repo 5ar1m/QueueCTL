@@ -1,11 +1,8 @@
 const sqlite3 = require('sqlite3');
-const dbDir = require('../utils/configDir.js');
+const { configDir } = require('../utils/configDir.js');
+const path = require('path');
 
-if (!fs.existsSync(dbDir)){
-    fs.mkdirSync(dbDir);
-}
-
-const dbPath = path.join(dbDir, 'memory.db');
+const dbPath = path.join(configDir, 'memory.db');
 
 const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
     if (err) {
