@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const program = require('./src/commands/cli.js');
 const initDB = require('./src/db/initDB.js');
 

@@ -17,6 +17,7 @@ const createDLQ = `CREATE TABLE IF NOT EXISTS dead_letter_queue (
                 title TEXT NOT NULL,
                 command TEXT NOT NULL,
                 max_retries INTEGER DEFAULT ${maxRetries},
+                log TEXT,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
             )`;

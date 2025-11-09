@@ -1,4 +1,5 @@
 const { Command } = require('commander');
+const listAll = require('../queue/listAll.js');
 
 /*
 command example -> 
@@ -12,8 +13,10 @@ dlq.description('view or retry DLQ jobs');
 dlq
 .command('list')
 .description('list all jobs in the DLQ')
-.action(() => {
+.action(async () => {
     // logic to list all jobs in DLQ
+    const rows = await listAll('dead');
+    console.table(rows);
 });
 
 dlq

@@ -6,9 +6,13 @@
   "author": "5ar1m",
   "type": "commonjs",
   "main": "main.js",
+  "bin": {
+    "queuectl": "main.js"
+  },
   "scripts": {
     "start": "node main.js",
-    "test": "node test/index.js"
+    "mock": "node test/mock.js",
+    "clear": "node test/clear.js"
   },
   "dependencies": {
     "commander": "^14.0.2",

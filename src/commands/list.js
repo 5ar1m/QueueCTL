@@ -24,7 +24,8 @@ list
 )
 .action(async (options) => {
     // logic to handle the listing
-    await listAll(options['state']);
+    const rows = await listAll(options['state']);
+    console.table(rows);
 });
 
 module.exports = list;

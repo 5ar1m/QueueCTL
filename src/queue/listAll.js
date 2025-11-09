@@ -5,13 +5,15 @@ async function listAll(jobState) {
     
     if (jobState == 'completed') {
         query = 'SELECT * FROM archive';
+    } else if (jobState == 'dead') {
+        query = 'SELECT * FROM dead_letter_queue';
     } else {
         query = `SELECT * FROM job_queue WHERE state = '${jobState}'`;
     }
 
     try {
         const rows = await asyncAll(query);
-        console.table(rows);
+        return rows;
     } catch(err) {
         console.log(`job listing failed: ${err.message}`);
     }
