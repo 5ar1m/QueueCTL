@@ -1,6 +1,30 @@
 const { Command } = require('commander');
-const { workersCollection } = require('../workers/control.js');
+const net = require('net');
+const path = require('path');
 const asyncGet = require('../db/asyncGet.js');
+
+const SOCKET_PATH = path.join('/tmp', 'queuectl.sock');
+
+async function sendCommand(message) {
+    return new Promise((resolve, reject) => {
+        const client = net.createConnection(SOCKET_PATH, () => {
+            client.write(message);
+        });
+
+        let response = '';
+        client.on('data', chunk => (response += chunk.toString()));
+        client.on('end', () => resolve(response.trim()));
+        client.on('error', (err) => {
+            if (err.code === 'ENOENT') {
+                // daemon not running
+                resolve('0');
+            } else {
+                reject(err);
+            }
+        });
+    });
+}
+
 
 // command example -> queuectl status
 
@@ -14,7 +38,13 @@ const summary = {
 }
 
 async function getSummary() {
-    summary.activeWorkers = workersCollection.size;
+    try {
+        const response = await sendCommand('STATUS');
+        const match = response.match(/active workers: (\d+)/);
+        summary.activeWorkers = match ? parseInt(match[1], 10) : 0;
+    } catch (err) {
+        console.warn('Unable to contact daemon for worker count:', err.message);
+    }
 
     const result1 = await asyncGet(`SELECT COUNT(*) AS pending FROM job_queue WHERE state = 'pending'`);
     summary.totalPending = result1['pending'];
