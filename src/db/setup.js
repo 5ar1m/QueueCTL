@@ -1,9 +1,5 @@
 const sqlite3 = require('sqlite3');
-const path = require('path');
-const os = require('os');
-const fs = require('fs');
-
-const dbDir = path.join(os.homedir(), '.queuectl');
+const dbDir = require('../utils/configDir.js');
 
 if (!fs.existsSync(dbDir)){
     fs.mkdirSync(dbDir);

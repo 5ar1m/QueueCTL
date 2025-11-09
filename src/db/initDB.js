@@ -1,5 +1,7 @@
-const { maxRetries } = require('../settings.js');
 const asyncRun = require('./asyncRun.js');
+const { getSettings } = require('../utils/settings.js');
+
+const maxRetries = getSettings()['maxRetries'];
 
 const createJQ = `CREATE TABLE IF NOT EXISTS job_queue (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,

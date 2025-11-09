@@ -1,0 +1,5 @@
+{
+    "maxRetries": 3,
+    "backoffBase": 2,
+    "defaultWorkers": 1
+}

@@ -1,6 +1,6 @@
 const { Command } = require('commander');
 const listAll = require('../queue/listAll.js');
-const retry = require('../queue/retry.js');
+const retryDead = require('../queue/retryDead.js');
 
 /*
 command example -> 
@@ -28,8 +28,9 @@ dlq
     // retry logic
     if (!jobId) {
         console.error('invalid job id');
+        return;
     }
-    retry(jobId);
+    retryDead(jobId);
 });
 
 module.exports = dlq;

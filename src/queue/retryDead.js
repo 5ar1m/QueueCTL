@@ -1,7 +1,7 @@
 const asyncGet = require('../db/asyncGet.js');
 const asyncRun = require('../db/asyncRun.js');
 
-async function retry(jobID) {
+async function retryDead(jobID) {
     try {
         await asyncRun('BEGIN TRANSACTION');
         const job = await asyncGet(
@@ -30,4 +30,4 @@ async function retry(jobID) {
     }
 }
 
-module.exports = retry;
+module.exports = retryDead;
