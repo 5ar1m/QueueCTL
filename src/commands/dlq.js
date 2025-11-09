@@ -1,5 +1,6 @@
 const { Command } = require('commander');
 const listAll = require('../queue/listAll.js');
+const retry = require('../queue/retry.js');
 
 /*
 command example -> 
@@ -22,9 +23,13 @@ dlq
 dlq
 .command('retry')
 .description('retry a specific job from the DLQ')
-.argument('<job-id>', 'the id of the job to retry')
-.action((jobId) => {
+.argument('<job-id>', 'the id of the job to retry', parseInt)
+.action(async (jobId) => {
     // retry logic
+    if (!jobId) {
+        console.error('invalid job id');
+    }
+    retry(jobId);
 });
 
 module.exports = dlq;
