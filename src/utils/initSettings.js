@@ -4,7 +4,6 @@ const { configDir } = require('./configDir.js');
 const { updateSettings } = require('./settings.js');
 
 async function initSettings() {
-    await fs.mkdir(configDir, { recursive: true });
     const settingsFile = path.join(configDir, 'settings.json');
     try{
         await fs.access(settingsFile);   

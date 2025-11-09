@@ -1,6 +1,7 @@
 const sqlite3 = require('sqlite3');
 const { configDir } = require('../utils/configDir.js');
 const path = require('path');
+const fs = require('fs');
 
 const dbPath = path.join(configDir, 'memory.db');
 

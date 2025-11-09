@@ -1,4 +1,5 @@
 const { Command } = require('commander');
+const { getSettings, updateSettings } = require('../utils/settings');
 
 /*
 command example -> 
@@ -18,8 +19,14 @@ configGet
 .option('--max-retries', 'get the max job retries')
 .option('--backoff-base', 'get the backoff base')
 .option('--default-workers', 'get the default numbers of workers')
-.action((options) => {
+.action(async (options) => {
     // logic to get values
+    const output = [];
+    const settings = await getSettings('settings.json');
+    for (const key in options) {
+        output.push([key, settings[key]]);
+    }
+    console.table(output)
 });
 
 // setting the values
@@ -31,8 +38,13 @@ configSet
 .option('--max-retries <number>', 'set the max job retries', parseInt)
 .option('--backoff-base <number>', 'set the backoff base', parseFloat)
 .option('--default-workers <number>', 'set the default numbers of workers', parseInt)
-.action((options) => {
+.action(async (options) => {
     // logic to set values
+    const settings = await getSettings('settings.json');
+    for (const key in options) {
+        settings[key] = options[key];
+    }
+    await updateSettings('settings.json', settings);
 });
 
 module.exports = config;
